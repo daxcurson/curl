@@ -33,6 +33,9 @@ final class PayloadReader {
                 throw new Curl.CurlException (e);
             }
         }
+        if(commandLine.hasOption(Arguments.DATA_JSON.getOpt())) {
+        	return jsonDataFrom(commandLine);
+        }
         return null;
     }
 
@@ -43,6 +46,33 @@ final class PayloadReader {
         } catch (final IllegalArgumentException e) {
             throw new Curl.CurlException (e);
         }
+    }
+    private static StringEntity jsonDataFrom(CommandLine commandLine)
+    {
+    	final String jsonFile= commandLine.getOptionValue (Arguments.DATA_JSON.getOpt ());
+    	try
+    	{
+    		if (jsonFile.indexOf ('@') == 0) {
+    			String filename=commandLine.getOptionValue(Arguments.DATA_JSON.getOpt()).substring(1).trim();
+                InputStream is=new FileInputStream(new File(filename));
+                Scanner scanner = new Scanner(is, StandardCharsets.UTF_8.name());
+                StringEntity entity=new StringEntity(scanner.useDelimiter("\\A").next());
+                scanner.close();
+                return entity;
+            }
+    		else
+    			throw new IllegalArgumentException("json file missing");
+    	}
+    	catch(IllegalArgumentException e)
+    	{
+    		throw new Curl.CurlException(e);
+    	} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw new Curl.CurlException(e);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new Curl.CurlException(e);
+		}
     }
 
     private static InputStreamEntity binaryDataFrom (CommandLine commandLine) {

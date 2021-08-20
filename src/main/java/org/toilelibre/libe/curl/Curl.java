@@ -190,4 +190,15 @@ public final class Curl {
         }
     }
 
+    public static void main(String[] args)
+    {
+    	// let's instantiate a curl object and feed it whatever parameter we can find.
+    	String fullargs="";
+    	for(String arg:args)
+    	{
+    		fullargs+=arg+" ";
+    	}
+    	// Now that I have all the arguments, run it.
+    	System.out.println($(fullargs));
+    }
 }

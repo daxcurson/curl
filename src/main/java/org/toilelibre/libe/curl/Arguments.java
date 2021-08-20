@@ -22,10 +22,14 @@ final class Arguments {
 
     final static Option  CONNECT_TIMEOUT  = Arguments.add (Option.builder ("cti").longOpt ("connect-timeout").desc ("Maximum time allowed for connection").required (false).hasArg (true).argName ("seconds").build ());
 
+    final static Option  CONTENT_TYPE     = Arguments.add (Option.builder ("CT").longOpt("content-type").desc("Content type for the data of this request").required(false).hasArg(true).argName("content_type").build());
+    
     final static Option  DATA             = Arguments.add (Option.builder ("d").longOpt ("data").desc ("Data").required (false).hasArg ().argName ("payload").build ());
 
     final static Option  DATA_BINARY      = Arguments.add (Option.builder ("databinary").longOpt ("data-binary").desc ("http post binary data").required (false).hasArg ().argName ("payload").build ());
 
+    final static Option  DATA_JSON        = Arguments.add(Option.builder("datajson").longOpt("data-json").desc("JSON-formatted data").required(false).hasArg().argName("payload").build());
+    
     final static Option  DATA_URLENCODE   = Arguments.add (Option.builder ("dataurlencode").longOpt ("data-urlencode").desc ("Data to URLEncode").required (false).hasArg ().argName ("payload").build ());
 
     final static Option  FOLLOW_REDIRECTS = Arguments.add (Option.builder ("L").longOpt ("location").desc ("follow redirects").required (false).hasArg (false).build ());
